@@ -14,7 +14,7 @@ protocol DetailViewControllerDelegate
     func submit(p: Place)
 }
 
-class DetailViewController: UIViewController, UITextFieldDelegate {
+class DetailViewController: UITableViewController, UITextFieldDelegate {
     
     var delegate: DetailViewControllerDelegate?
     var p: Place?
@@ -23,7 +23,6 @@ class DetailViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var addressField: UITextField!
     @IBOutlet weak var latField: UITextField!
     @IBOutlet weak var longField: UITextField!
-    @IBOutlet weak var valueLabel: UILabel!
     
     var places = PlaceList()
     
