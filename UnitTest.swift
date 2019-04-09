@@ -1,15 +1,13 @@
 //
-//  ExpenseTrackerTests.swift
-//  ExpenseTrackerTests
+//  UnitTest.swift
+//  
 //
-//  Created by Ryan Barker on 11/3/19.
-//  Copyright © 2019 Ryan Barker. All rights reserved.
+//  Created by Ryan Barker on 26/3/19.
 //
 
 import XCTest
-@testable import ExpenseTracker
 
-class ExpenseTrackerTests: XCTestCase {
+class UnitTest: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.

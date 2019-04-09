@@ -7,13 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E0864072240DEC900CEEA07 /* ExpenseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0864062240DEC900CEEA07 /* ExpenseItem.swift */; };
+		3E0864092240E13600CEEA07 /* ExpenseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0864082240E13600CEEA07 /* ExpenseList.swift */; };
+		3E08640B2240EA4600CEEA07 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E08640A2240EA4600CEEA07 /* MasterViewController.swift */; };
 		3E3A071E22364F5900062C7C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3A071D22364F5900062C7C /* AppDelegate.swift */; };
-		3E3A072022364F5900062C7C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3A071F22364F5900062C7C /* ViewController.swift */; };
+		3E3A072022364F5900062C7C /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3A071F22364F5900062C7C /* DetailViewController.swift */; };
 		3E3A072322364F5900062C7C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E3A072122364F5900062C7C /* Main.storyboard */; };
 		3E3A072522364F5A00062C7C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3E3A072422364F5A00062C7C /* Assets.xcassets */; };
 		3E3A072822364F5A00062C7C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E3A072622364F5A00062C7C /* LaunchScreen.storyboard */; };
 		3E3A073322364F5A00062C7C /* ExpenseTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3A073222364F5A00062C7C /* ExpenseTrackerTests.swift */; };
 		3E3A073E22364F5A00062C7C /* ExpenseTrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3A073D22364F5A00062C7C /* ExpenseTrackerUITests.swift */; };
+		3E4F6CA4225C5E2500A81202 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4F6CA3225C5E2500A81202 /* Place.swift */; };
+		3E4F6CA6225C5EA300A81202 /* PlaceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4F6CA5225C5EA300A81202 /* PlaceList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,9 +39,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3E0864062240DEC900CEEA07 /* ExpenseItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseItem.swift; sourceTree = "<group>"; };
+		3E0864082240E13600CEEA07 /* ExpenseList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseList.swift; sourceTree = "<group>"; };
+		3E08640A2240EA4600CEEA07 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
 		3E3A071A22364F5900062C7C /* ExpenseTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExpenseTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E3A071D22364F5900062C7C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3E3A071F22364F5900062C7C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3E3A071F22364F5900062C7C /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		3E3A072222364F5900062C7C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3E3A072422364F5A00062C7C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3E3A072722364F5A00062C7C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +55,8 @@
 		3E3A073922364F5A00062C7C /* ExpenseTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExpenseTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E3A073D22364F5A00062C7C /* ExpenseTrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseTrackerUITests.swift; sourceTree = "<group>"; };
 		3E3A073F22364F5A00062C7C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3E4F6CA3225C5E2500A81202 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
+		3E4F6CA5225C5EA300A81202 /* PlaceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +84,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E0864052240DDA400CEEA07 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3E4F6CA3225C5E2500A81202 /* Place.swift */,
+				3E0864062240DEC900CEEA07 /* ExpenseItem.swift */,
+				3E4F6CA5225C5EA300A81202 /* PlaceList.swift */,
+				3E0864082240E13600CEEA07 /* ExpenseList.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		3E08640C2240FE6A00CEEA07 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3E08640A2240EA4600CEEA07 /* MasterViewController.swift */,
+				3E3A071F22364F5900062C7C /* DetailViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		3E3A071122364F5900062C7C = {
 			isa = PBXGroup;
 			children = (
@@ -97,9 +127,10 @@
 		3E3A071C22364F5900062C7C /* ExpenseTracker */ = {
 			isa = PBXGroup;
 			children = (
+				3EDE4D522241E66B00EC8732 /* View */,
+				3E08640C2240FE6A00CEEA07 /* Controllers */,
+				3E0864052240DDA400CEEA07 /* Model */,
 				3E3A071D22364F5900062C7C /* AppDelegate.swift */,
-				3E3A071F22364F5900062C7C /* ViewController.swift */,
-				3E3A072122364F5900062C7C /* Main.storyboard */,
 				3E3A072422364F5A00062C7C /* Assets.xcassets */,
 				3E3A072622364F5A00062C7C /* LaunchScreen.storyboard */,
 				3E3A072922364F5A00062C7C /* Info.plist */,
@@ -123,6 +154,14 @@
 				3E3A073F22364F5A00062C7C /* Info.plist */,
 			);
 			path = ExpenseTrackerUITests;
+			sourceTree = "<group>";
+		};
+		3EDE4D522241E66B00EC8732 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3E3A072122364F5900062C7C /* Main.storyboard */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -256,7 +295,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E3A072022364F5900062C7C /* ViewController.swift in Sources */,
+				3E08640B2240EA4600CEEA07 /* MasterViewController.swift in Sources */,
+				3E0864092240E13600CEEA07 /* ExpenseList.swift in Sources */,
+				3E4F6CA4225C5E2500A81202 /* Place.swift in Sources */,
+				3E3A072022364F5900062C7C /* DetailViewController.swift in Sources */,
+				3E4F6CA6225C5EA300A81202 /* PlaceList.swift in Sources */,
+				3E0864072240DEC900CEEA07 /* ExpenseItem.swift in Sources */,
 				3E3A071E22364F5900062C7C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
