@@ -11,24 +11,26 @@ import XCTest
 
 class ExpenseTrackerTests: XCTestCase {
 
+    var places: PlaceList!
+    
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        super.setUp()
+        places = PlaceList()
     }
-
+    
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        places = nil
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testAddPlace(){
+        
+        let p = Place(n: "Brisbane", la: "117.02", lo: "376.78", a: "Brisbane CBD")
+        
+        places.addPlace(p: p)
+        XCTAssertTrue(places.pList.count == 1)
+        
+        let p2 = Place(n: "Sydney", la: "199.02", lo: "456.78", a: "Sydney CBD")
+        places.addPlace(p: p2)
+        XCTAssertTrue(places.pList.count == 2)
     }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }
