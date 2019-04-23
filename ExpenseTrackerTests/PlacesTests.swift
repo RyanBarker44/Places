@@ -47,4 +47,5 @@ class PlacesTests: XCTestCase {
         XCTAssertEqual(p.long, lo)
         XCTAssertEqual(p.address, a)
     }
+    
 }

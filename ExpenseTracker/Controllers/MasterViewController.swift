@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import CoreLocation
 
 class MasterViewController: UITableViewController, UITextFieldDelegate, DetailViewControllerDelegate{
     
     var places = PlaceList()
     var edit = false
+    let geo = CLGeocoder()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,6 +77,23 @@ class MasterViewController: UITableViewController, UITextFieldDelegate, DetailVi
     
     func submit(p: Place)
     {
+        if (p.lat == "" && p.long == "") || edit == true{
+            
+            geo.geocodeAddressString(p.address) {
+                guard let placeMarks = $0 else { print("Got error: \(String(describing: $1))")
+                    return
+                }
+                for placeMark in placeMarks{
+                    
+                    guard let lat = placeMark.location?.coordinate.latitude else{ continue }
+                    guard let long = placeMark.location?.coordinate.longitude else{ continue }
+                    
+                    p.lat = String(lat)
+                    p.long = String(long)
+                }
+            }
+        }
+        
         if edit == true
         {
             print("Editing")
