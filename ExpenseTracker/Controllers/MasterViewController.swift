@@ -9,17 +9,45 @@
 import UIKit
 import CoreLocation
 
+let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+
 class MasterViewController: UITableViewController, UITextFieldDelegate, DetailViewControllerDelegate{
     
     var places = PlaceList()
     var edit = false
     let geo = CLGeocoder()
     
+    func encodeFunc(){
+        do{
+            let fileURL = docs.appendingPathComponent("json")
+            let encoder = JSONEncoder()
+            let json = try encoder.encode(places.pList)
+            try json.write(to: fileURL, options: .atomic)
+        } catch{
+            print("Error: \(error)")
+        }
+    }
+    func decodeFunc(){
+        do{
+            let fileURL = docs.appendingPathComponent("json")
+            let data = try Data(contentsOf: fileURL)
+            let decoder = JSONDecoder()
+            places.pList = try decoder.decode([Place].self, from: data)
+        } catch{
+            print("Error: \(error)")
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = self.editButtonItem
-    }
 
+        decodeFunc()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        encodeFunc()
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -47,17 +75,15 @@ class MasterViewController: UITableViewController, UITextFieldDelegate, DetailVi
             places.pList.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
-        else if editingStyle == .insert
-        {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }
-        
+        encodeFunc()
     }
+    
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         let movedObject = self.places.pList[sourceIndexPath.row]
         
         places.pList.remove(at: sourceIndexPath.row)
         places.pList.insert(movedObject, at: destinationIndexPath.row)
+        encodeFunc()
     }
    
     
@@ -73,8 +99,22 @@ class MasterViewController: UITableViewController, UITextFieldDelegate, DetailVi
             edit = true
             vc.p = places.pList[tableView.indexPathForSelectedRow?.row ?? 0]
         }
+        encodeFunc()
+        //decodeFunc()
     }
     
+//    override func viewWillDisappear(_ animated: Bool) {
+//
+//        print("Exiting")
+//
+//        encodeFunc()
+//        //decodeFunc()
+//        print("Got \(places.pList.count) places:")
+//        for place in places.pList {
+//            print(place.name)
+//        }
+//
+//    }
     func submit(p: Place)
     {
         if (p.lat == "" && p.long == "") || edit == true{
