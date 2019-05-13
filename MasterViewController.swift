@@ -18,7 +18,10 @@ class MasterViewController: UITableViewController, UITextFieldDelegate, DetailVi
     var places = PlaceList()
     var edit = false
     let geo = CLGeocoder()
-
+    
+    var index: Int?
+    var prevIndex: Int?
+    
     func encodeFunc(){
         do{
             let fileURL = docs.appendingPathComponent("json")
@@ -61,6 +64,7 @@ class MasterViewController: UITableViewController, UITextFieldDelegate, DetailVi
     override func viewWillAppear(_ animated: Bool) {
         clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
+        tableView.reloadData()
     }
 
     // MARK: - Segues
@@ -77,9 +81,14 @@ class MasterViewController: UITableViewController, UITextFieldDelegate, DetailVi
         if sender is UITableViewCell
         {
             edit = true
-            vc.p = places.pList[tableView.indexPathForSelectedRow?.row ?? 0]
+            prevIndex = index
+            index = tableView.indexPathForSelectedRow?.row
+            print("Index", index)
+            print("PrevIndex", prevIndex)
+            vc.p = places.pList[index!]
         }
         else{
+            prevIndex = tableView.indexPathForSelectedRow?.row
             edit = false
         }
 
@@ -124,6 +133,7 @@ class MasterViewController: UITableViewController, UITextFieldDelegate, DetailVi
         {
             places.pList.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            
         }
         encodeFunc()
     }
@@ -131,34 +141,77 @@ class MasterViewController: UITableViewController, UITextFieldDelegate, DetailVi
     func submit(p: Place)
     {
         print("SUBMITTING")
-        if (p.lat == "" && p.long == "") || edit == true{
-            
-            geo.geocodeAddressString(p.address) {
-                guard let placeMarks = $0 else { print("Got error: \(String(describing: $1))")
-                    return
-                }
-                for placeMark in placeMarks{
-                    
-                    guard let lat = placeMark.location?.coordinate.latitude else{ continue }
-                    guard let long = placeMark.location?.coordinate.longitude else{ continue }
-                    
-                    p.lat = String(lat)
-                    p.long = String(long)
-                }
-            }
-        }
-        
+//        if (p.lat == "" || p.long == "") || edit == true{
+//       // if p.address != "" && p.name != ""{
+//            
+//            geo.geocodeAddressString(p.address) {
+//                guard let placeMarks = $0 else { print("Got error: \(String(describing: $1))")
+//                    return
+//                }
+//                for placeMark in placeMarks{
+//                    
+//                    guard let lat = placeMark.location?.coordinate.latitude else{ continue }
+//                    guard let long = placeMark.location?.coordinate.longitude else{ continue }
+//                    
+//                    p.lat = String(lat)
+//                    p.long = String(long)
+//                }
+//            }
+//        }
+//        else if (p.address == ""){
+//            // Reverse-Geo
+//            
+//            // -27.46
+//            //153.03
+//
+//            let addressLocation = CLLocation(latitude: Double(p.lat) ?? 0, longitude: Double(p.long) ?? 0)
+//            print("ENTERING REVERSE")
+//            geo.reverseGeocodeLocation(addressLocation)
+//            {
+//                print("REVERSING")
+//                guard let placeMarks = $0 else { print("Got error: \(String(describing: $1))")
+//                    return
+//                }
+//
+//                for placeMark in placeMarks {
+//
+//                    guard let name = placeMark.name else { print("didnt find name")
+//                        continue }
+//                    guard let address = placeMark.thoroughfare else { print("didn't find address")
+//                        continue }
+//                    guard let number = placeMark.subThoroughfare else { print("didn't find address")
+//                        continue }
+//                    guard let city = placeMark.locality else { continue }
+//                    guard let postcode = placeMark.postalCode else { continue }
+//                    guard let state = placeMark.administrativeArea else { continue }
+//                    guard let country = placeMark.country else { continue }
+//
+//                    let wholeAddress = ("\(number) \(address), \(city), \(postcode), \(state), \(country)")
+//
+//                    p.address = wholeAddress
+//                    p.name = name
+//                }
+//                self.tableView.reloadData()
+//            }
+//        }
         if edit == true
         {
             print("Editing")
-            places.pList[tableView.indexPathForSelectedRow?.row ?? 0] = p
+            
+            if prevIndex == nil{
+                prevIndex = index
+            }
+            //places.pList[index!] = p  FOR PHONE
+            places.pList[prevIndex!] = p
         }
         else
         {
+            print("Name ",p.name)
             places.addPlace(p: p)
         }
-
+        
         tableView.reloadData()
     }
+    
 }
 
