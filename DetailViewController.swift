@@ -54,7 +54,7 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
             _ = navigationController?.popToRootViewController(animated: true)
         }
     }
-    
+    //
     /// Transforms and adds data to the model through the masterview
     func addToModel()
     {
