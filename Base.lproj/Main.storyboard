@@ -201,6 +201,24 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Map" footerTitle="" id="Stw-Xo-vFX">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="350" id="EoK-yg-Pxp">
+                                        <rect key="frame" x="0.0" y="351" width="414" height="350"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EoK-yg-Pxp" id="RNZ-Kd-3P8">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="349.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="5mY-ki-QVb">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </mapView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="NX1-TU-gaA" id="3Eu-us-4XX"/>
@@ -216,6 +234,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addressField" destination="eXx-LE-WGw" id="Crh-Mt-jTR"/>
+                        <outlet property="detailMap" destination="5mY-ki-QVb" id="K4e-Go-YNE"/>
                         <outlet property="latField" destination="l42-zf-xCH" id="5Ij-9w-k2q"/>
                         <outlet property="longField" destination="s90-dr-35R" id="hTe-eq-XMv"/>
                         <outlet property="nameField" destination="Twt-uq-Val" id="WdP-Yq-hxN"/>
@@ -223,7 +242,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="889-5a-2G1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="709" y="124"/>
+            <point key="canvasLocation" x="708.69565217391312" y="123.88392857142857"/>
         </scene>
         <!--Place List-->
         <scene sceneID="iWW-er-Y42">
@@ -234,7 +253,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="Im8-ZT-JRb" rowHeight="36" style="IBUITableViewCellStyleDefault" id="FcH-yw-5QT">
+                            <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="blue" indentationLevel="1" indentationWidth="10" reuseIdentifier="cell" textLabel="Im8-ZT-JRb" detailTextLabel="0EO-K1-PEV" rowHeight="36" style="IBUITableViewCellStyleSubtitle" id="FcH-yw-5QT">
                                 <rect key="frame" x="0.0" y="28" width="414" height="36"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FcH-yw-5QT" id="6Hq-8m-CeY">
@@ -242,9 +261,16 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Im8-ZT-JRb">
-                                            <rect key="frame" x="20" y="0.0" width="374" height="35.5"/>
+                                            <rect key="frame" x="30" y="1" width="33.5" height="20.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0EO-K1-PEV">
+                                            <rect key="frame" x="30" y="21.5" width="44" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>

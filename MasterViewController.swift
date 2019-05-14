@@ -110,6 +110,7 @@ class MasterViewController: UITableViewController, UITextFieldDelegate, DetailVi
 
         let line = places.pList[indexPath.row]
         cell.textLabel?.text = "\(line.name)"
+        cell.detailTextLabel?.text = "\(line.address)"
         return cell
     }
 

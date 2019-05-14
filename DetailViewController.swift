@@ -9,6 +9,7 @@
 import UIKit
 import Foundation
 import CoreLocation
+import MapKit
 
 protocol DetailViewControllerDelegate: class
 {
@@ -24,7 +25,8 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var addressField: UITextField!
     @IBOutlet weak var latField: UITextField!
     @IBOutlet weak var longField: UITextField!
-
+    @IBOutlet weak var detailMap: MKMapView!
+    
     var places = PlaceList()
     
 //    func configureView(){
@@ -68,7 +70,7 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
                 // if p.address != "" && p.name != ""{
                 
                 geo.geocodeAddressString(address) {
-                    guard let placeMarks = $0 else { print("Got error: \(String(describing: $1))")
+                    guard let placeMarks = $0 else { print("Got placemarks 1 error: \(String(describing: $1))")
                         return
                     }
                     for placeMark in placeMarks{
@@ -97,7 +99,7 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
                 geo.reverseGeocodeLocation(addressLocation)
                 {
                     print("REVERSING")
-                    guard let placeMarks = $0 else { print("Got error: \(String(describing: $1))")
+                    guard let placeMarks = $0 else { print("Got placemarks 2 error: \(String(describing: $1))")
                         return
                     }
                     
@@ -135,6 +137,16 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
                 p?.long = longField.text ?? "Empty"
                 
                 self.delegate?.submit(p: p!)
+            }
+            else{
+                print("HEKKE")
+                name = nameField.text ?? "Empty"
+                address = addressField.text ?? "Empty"
+                lat = latField.text ?? "Empty"
+                long = longField.text ?? "Empty"
+                
+                let place = Place(n: name, la: lat , lo: long, a: address)
+                delegate?.submit(p: place)
             }
             
             
@@ -231,6 +243,7 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
             longField.text = String(pl.long)
             //print("configuring")
         }
+        setupMap()
     }
     
     override func viewDidLoad() {
@@ -249,6 +262,27 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
         didSet {
             // Update the view.
             configureView()
+        }
+    }
+    
+    func setupMap()
+    {
+        if let lat = latField.text, let long = longField.text
+        {
+            var coordinates = CLLocationCoordinate2D()
+            coordinates.latitude = Double(lat) ?? 0
+            coordinates.longitude = Double(long) ?? 0
+    
+            let region = MKCoordinateRegion(center: coordinates, latitudinalMeters: 10_000, longitudinalMeters: 10_000)
+            detailMap.setRegion(region, animated: true)
+            detailMap.setCenter(coordinates, animated: true)
+    
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3))
+            {
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = coordinates
+                self.detailMap.addAnnotation(annotation)
+            }
         }
     }
 }
