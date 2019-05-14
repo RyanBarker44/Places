@@ -11,6 +11,7 @@ import CoreLocation
 
 let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
 
+/// The Master view controller
 class MasterViewController: UITableViewController, UITextFieldDelegate, DetailViewControllerDelegate{
     
     var detailViewController: DetailViewController? = nil
@@ -18,10 +19,10 @@ class MasterViewController: UITableViewController, UITextFieldDelegate, DetailVi
     var places = PlaceList()
     var edit = false
     let geo = CLGeocoder()
-    
     var index: Int?
     var prevIndex: Int?
     
+    /// Writes the data to a file
     func encodeFunc(){
         do{
             let fileURL = docs.appendingPathComponent("json")
@@ -32,6 +33,8 @@ class MasterViewController: UITableViewController, UITextFieldDelegate, DetailVi
             print("Error: \(error)")
         }
     }
+    
+    /// Reads the data from a file
     func decodeFunc(){
         do{
             let fileURL = docs.appendingPathComponent("json")
@@ -45,9 +48,7 @@ class MasterViewController: UITableViewController, UITextFieldDelegate, DetailVi
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         navigationItem.leftBarButtonItem = editButtonItem
-        //index = places.pList.count
         decodeFunc()
        
         if let split = splitViewController {
@@ -68,10 +69,11 @@ class MasterViewController: UITableViewController, UITextFieldDelegate, DetailVi
     }
 
     // MARK: - Segues
-
+    
+    /// The segue between the Master and Detail view, gets called everytime the views switches to detai
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print("PREPARING")
-        //guard let vc = segue.destination as? DetailViewController else {return}
+
         let vc = (segue.destination as! UINavigationController).topViewController as! DetailViewController
         vc.delegate = self
         
@@ -95,14 +97,17 @@ class MasterViewController: UITableViewController, UITextFieldDelegate, DetailVi
 
     // MARK: - Table View
 
+    /// - Returns: The number of sections in the tableView
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
+    /// - Returns: Returns the count of item in the array
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (places.pList.count)
     }
-
+    
+    /// - Returns: Returns the cell data from the array to display
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
 
@@ -137,62 +142,13 @@ class MasterViewController: UITableViewController, UITextFieldDelegate, DetailVi
         encodeFunc()
     }
     
+    /// Submits the place item to be added onto the list
+    /// - Parameter p: The place item to insert into the array
     func submit(p: Place)
     {
         print("SUBMITTING")
-//        if (p.lat == "" || p.long == "") || edit == true{
-//       // if p.address != "" && p.name != ""{
-//            
-//            geo.geocodeAddressString(p.address) {
-//                guard let placeMarks = $0 else { print("Got error: \(String(describing: $1))")
-//                    return
-//                }
-//                for placeMark in placeMarks{
-//                    
-//                    guard let lat = placeMark.location?.coordinate.latitude else{ continue }
-//                    guard let long = placeMark.location?.coordinate.longitude else{ continue }
-//                    
-//                    p.lat = String(lat)
-//                    p.long = String(long)
-//                }
-//            }
-//        }
-//        else if (p.address == ""){
-//            // Reverse-Geo
-//            
-//            // -27.46
-//            //153.03
-//
-//            let addressLocation = CLLocation(latitude: Double(p.lat) ?? 0, longitude: Double(p.long) ?? 0)
-//            print("ENTERING REVERSE")
-//            geo.reverseGeocodeLocation(addressLocation)
-//            {
-//                print("REVERSING")
-//                guard let placeMarks = $0 else { print("Got error: \(String(describing: $1))")
-//                    return
-//                }
-//
-//                for placeMark in placeMarks {
-//
-//                    guard let name = placeMark.name else { print("didnt find name")
-//                        continue }
-//                    guard let address = placeMark.thoroughfare else { print("didn't find address")
-//                        continue }
-//                    guard let number = placeMark.subThoroughfare else { print("didn't find address")
-//                        continue }
-//                    guard let city = placeMark.locality else { continue }
-//                    guard let postcode = placeMark.postalCode else { continue }
-//                    guard let state = placeMark.administrativeArea else { continue }
-//                    guard let country = placeMark.country else { continue }
-//
-//                    let wholeAddress = ("\(number) \(address), \(city), \(postcode), \(state), \(country)")
-//
-//                    p.address = wholeAddress
-//                    p.name = name
-//                }
-//                self.tableView.reloadData()
-//            }
-//        }
+        
+        // If a cell is clicked on, edit is true, existing cell updated
         if edit == true
         {
             print("Editing")
@@ -200,13 +156,10 @@ class MasterViewController: UITableViewController, UITextFieldDelegate, DetailVi
             if prevIndex == nil{
                 prevIndex = index
             }
-            print("editing index:", index)
-            print("previous index:", prevIndex)
-            //places.pList[index!] = p  FOR PHONE
-            
-            places.pList[prevIndex ?? 0] = p
+            places.pList[index!] = p  //FOR PHONE
+            //places.pList[prevIndex ?? 0] = p
         }
-        else
+        else // New cell is added
         {
             print("Name ",p.name)
             places.addPlace(p: p)
@@ -214,11 +167,5 @@ class MasterViewController: UITableViewController, UITextFieldDelegate, DetailVi
         
         tableView.reloadData()
     }
-    
-//    override func viewDidDisappear(_ animated: Bool) {
-//        print("Dissapearing")
-//        prevIndex = index
-//    }
-    
 }
 
