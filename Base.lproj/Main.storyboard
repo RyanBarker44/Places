@@ -210,11 +210,16 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="349.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="5mY-ki-QVb">
+                                                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="5mY-ki-QVb">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="350"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </mapView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="5mY-ki-QVb" secondAttribute="trailing" id="Wt4-vP-vbX"/>
+                                                <constraint firstItem="5mY-ki-QVb" firstAttribute="centerY" secondItem="RNZ-Kd-3P8" secondAttribute="centerY" id="ZsA-fn-xuJ"/>
+                                                <constraint firstItem="5mY-ki-QVb" firstAttribute="top" secondItem="RNZ-Kd-3P8" secondAttribute="top" id="Zx6-Kx-EMg"/>
+                                                <constraint firstItem="5mY-ki-QVb" firstAttribute="leading" secondItem="RNZ-Kd-3P8" secondAttribute="leading" id="b0J-HA-iDZ"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>

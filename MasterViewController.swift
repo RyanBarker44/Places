@@ -83,9 +83,7 @@ class MasterViewController: UITableViewController, UITextFieldDelegate, DetailVi
             edit = true
             prevIndex = index
             index = tableView.indexPathForSelectedRow?.row
-            print("Index", index)
-            print("PrevIndex", prevIndex)
-            vc.p = places.pList[index!]
+            vc.p = places.pList[index ?? 0]
         }
         else{
             prevIndex = tableView.indexPathForSelectedRow?.row
@@ -202,8 +200,11 @@ class MasterViewController: UITableViewController, UITextFieldDelegate, DetailVi
             if prevIndex == nil{
                 prevIndex = index
             }
+            print("editing index:", index)
+            print("previous index:", prevIndex)
             //places.pList[index!] = p  FOR PHONE
-            places.pList[prevIndex!] = p
+            
+            places.pList[prevIndex ?? 0] = p
         }
         else
         {
@@ -213,6 +214,11 @@ class MasterViewController: UITableViewController, UITextFieldDelegate, DetailVi
         
         tableView.reloadData()
     }
+    
+//    override func viewDidDisappear(_ animated: Bool) {
+//        print("Dissapearing")
+//        prevIndex = index
+//    }
     
 }
 

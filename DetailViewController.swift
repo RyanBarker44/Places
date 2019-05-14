@@ -66,7 +66,7 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
 
         if var name = nameField.text, var address = addressField.text, var lat = latField.text, var long = longField.text
         {
-            if (lat == "" && long == "") && (address != ""){
+            if (lat == "" && long == "") && (address != "") || (address != p?.address){
                 // if p.address != "" && p.name != ""{
                 
                 geo.geocodeAddressString(address) {
@@ -77,13 +77,22 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
                         
                         guard let searchLat = placeMark.location?.coordinate.latitude else{ continue }
                         guard let searchLong = placeMark.location?.coordinate.longitude else{ continue }
+                        guard let searchName = placeMark.name else { print("didnt find name")
+                            continue }
                         
                         lat = String(searchLat)
                         long = String(searchLong)
                         
+                        if self.nameField.text == ""{
+                            name = searchName
+                            self.nameField.text = name
+                            print(name)
+                        }
+                        
                         self.latField.text = lat
                         self.longField.text = long
                     }
+                    
                     let place = Place(n: name, la: lat , lo: long, a: address)
                     self.delegate?.submit(p: place)
                 }
@@ -129,14 +138,15 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
                     self.delegate?.submit(p: place)
                 }
             }
-            else if (name != p?.name || address != p?.address || lat != p?.lat || long != p?.long){
+            if (name != p?.name || address != p?.address || lat != p?.lat || long != p?.long){
                 
-                p?.name = nameField.text ?? "Empty"
-                p?.address = addressField.text ?? "Empty"
-                p?.lat = latField.text ?? "Empty"
-                p?.long = longField.text ?? "Empty"
+                name = nameField.text ?? "Empty"
+                address = addressField.text ?? "Empty"
+                lat = latField.text ?? "Empty"
+                long = longField.text ?? "Empty"
                 
-                self.delegate?.submit(p: p!)
+                let place = Place(n: name, la: lat , lo: long, a: address)
+                self.delegate?.submit(p: place)
             }
             else{
                 print("HEKKE")
@@ -164,7 +174,6 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
 //                longField.text = ""
                 
                 //delegate?.submit(p: place)
-
         }
     }
     
@@ -183,14 +192,30 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
      //prevents triggering addToModel() when clicking on another cell
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 
-        if nameField != nil
+        /// adding cells when the address is given
+        if (addressField.text != "") &&
+            (latField.text == "" && longField.text == "") &&
+            (p?.name == nil && p?.address == nil)
         {
+            print("where am i 1")
             addToModel()
         }
-        if p?.name != nil && p?.address != nil{
-            p?.name = nameField.text ?? ""
-            p?.address = addressField.text ?? ""
+            /// for adding cells to the table when the longitude and latitude are given
+        else if (latField.text != "" && longField.text != "") &&
+            (nameField.text == "" || addressField.text == "") &&
+            (p?.lat == nil && p?.long == nil)
+        {
+            print("where am i 2")
+            addToModel()
         }
+            
+            /// editing exisiting cells in the table
+        else if p?.name != nil
+        {
+            print("where am i 3")
+            addToModel()
+        }
+        setupMap()
         return true
     }
     
@@ -208,7 +233,7 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField)
     {
         /// adding cells when the address is given
-        if (nameField.text != "" && addressField.text != "") &&
+        if (addressField.text != "") &&
             (latField.text == "" && longField.text == "") &&
             (p?.name == nil && p?.address == nil)
         {
@@ -230,6 +255,7 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
             print("where am i 3")
             addToModel()
         }
+        setupMap()
     }
 
     func configureView()
@@ -281,7 +307,9 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
             {
                 let annotation = MKPointAnnotation()
                 annotation.coordinate = coordinates
+                annotation.title = "\(self.nameField.text ?? "Error, no name found")"
                 self.detailMap.addAnnotation(annotation)
+                
             }
         }
     }
