@@ -18,10 +18,14 @@ protocol DetailViewControllerDelegate: class
 }
 /// The Detail view controller
 class DetailViewController: UITableViewController, UITextFieldDelegate {
-
+    
+    // Controls the delegation between the master and detail view
     var delegate: DetailViewControllerDelegate?
+    // An empty place variable fo use in delegation
     var p: Place?
+    // A geo object used for forward and reverse geolocating
     let geo = CLGeocoder()
+    
     
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var addressField: UITextField!
@@ -29,6 +33,7 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var longField: UITextField!
     @IBOutlet weak var detailMap: MKMapView!
     
+    // Initialises a Placelist object which holds the places
     var places = PlaceList()
     
     @IBAction func cancelButton(_ sender: UIBarButtonItem) {
@@ -54,13 +59,13 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
             _ = navigationController?.popToRootViewController(animated: true)
         }
     }
-    //
+    
     /// Transforms and adds data to the model through the masterview
     func addToModel()
     {
         if var name = nameField.text, var address = addressField.text, var lat = latField.text, var long = longField.text
         {
-            if (lat == "" && long == "") && (address != "") || (address != p?.address){
+            if (lat == "" && long == "") && (address != ""){
                 
                 // Forward Geo-Locating
                 geo.geocodeAddressString(address) {
@@ -91,7 +96,7 @@ class DetailViewController: UITableViewController, UITextFieldDelegate {
                     self.delegate?.submit(p: place)
                 }
             }
-            else if (addressField.text == "" && (latField.text != "" && longField.text != "")){
+            else if (addressField.text == "" && (latField.text != "" && longField.text != "")) {
                 // Reverse-Geo locating
                 
                 // -27.46
